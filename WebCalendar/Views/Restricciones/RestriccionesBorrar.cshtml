@@ -1,4 +1,4 @@
-﻿@model WebCalendar.Models.Restricciones
+@model WebCalendar.Models.Restricciones
 
 @{
     ViewData["Title"] = "Delete";
@@ -50,7 +50,7 @@
                             </div>
                         }
                         <div class="form-group mt-3 text-center">
-                            <button type="submit" class="btn btn-primary d-inline-block mx-auto"><i class="bi bi-eraser"> Borrar</i></button>
+                            <button type="submit" class="btn btn-danger d-inline-block mx-auto"><i class="bi bi-eraser"> Borrar</i></button>
                             <a class="btn btn-secondary" asp-controller="Restricciones" asp-action="RestriccionesIndex" asp-route-id="@competicion.ID_Competicion">Volver</a>
                         </div>
                     }
@@ -58,54 +58,4 @@
             </div>
         </div>
     </div>
-</div>
-
-
-
-
-
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Restricciones</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoRestriccion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoRestriccion.Tipo_Restriccion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Competicion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Competicion.NombreCompeticion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ID_Jornada)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ID_Jornada)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ID_Equipo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ID_Equipo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ID_EquipoRival)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ID_EquipoRival)
-        </dd>
-    </dl>
-    
-    <form asp-action="RestriccionesBorrar">
-        <input type="hidden" asp-for="ID_Restriccion" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
 </div>
