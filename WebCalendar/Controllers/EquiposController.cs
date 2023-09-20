@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -110,11 +110,19 @@ namespace WebCalendar.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(equipos);
-                await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index),equipos.ID_Competicion);
-                //return View("Index", equipos.ID_Competicion);
-                return RedirectToAction(nameof(EquiposIndex), new { id = equipos.ID_Competicion });
+                Equipos equipoExistente = _context.Equipos.Where(e => e.ID_Competicion == equipos.ID_Competicion).Where(e => e.NombreEquipo == equipos.NombreEquipo).FirstOrDefault();
+                if (equipoExistente == null)
+                {
+                    _context.Add(equipos);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(EquiposIndex), new { id = equipos.ID_Competicion });
+                }
+
+                ViewData["Duplicado"] = "Ya existe un equipo con ese nombre.";
+                ViewData["ID_Competicion"] = new SelectList(_context.Competiciones, "ID_Competicion", "NombreCompeticion", equipos.ID_Competicion);
+                ViewData["idCompeticion"] = equipos.ID_Competicion;
+                return View(equipos);
+
             }
             ViewData["ID_Competicion"] = new SelectList(_context.Competiciones, "ID_Competicion", "NombreCompeticion", equipos.ID_Competicion);
             return View(equipos);
