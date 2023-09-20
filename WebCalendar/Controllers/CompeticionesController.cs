@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -346,7 +346,6 @@ namespace WebCalendar.Controllers
                 if (item.ID_EquipoRival != null)
                 {
                     numEquipoRivalLista = listaEquiposCalendario.Where(e => e.ID_Equipo == item.ID_EquipoRival).First().NumEquipo;
-                    //Equipos equipoRival = await _context.Equipos.Where(e => e.ID_Competicion == id).Where(e => e.ID_Equipo == item.ID_EquipoRival).FirstAsync();
                 }
 
                 int numJornada = _context.Jornadas.Where(j => j.ID_Competicion == id).Where(j => j.ID_Jornada == item.ID_Jornada).First().Num_Jornada;
@@ -358,6 +357,7 @@ namespace WebCalendar.Controllers
             }
 
             IList<PartidosCalendario> listadoPartidosCalendario = Globals.OpponentModel(listaEquipos.Count(), 60, competicion.Jor_Rep_Enfrentamiento, competicion.Num_Jor_Loc, competicion.Alternar_Local_Vuelta, listaRestriccionesCalendario);
+            IList<Jornadas> listadoJornadasCompeticion = await _context.Jornadas.Where(j => j.ID_Competicion == id).ToListAsync();
 
             if (listadoPartidosCalendario != null)
             {
@@ -365,7 +365,8 @@ namespace WebCalendar.Controllers
                 {
                     Partidos partido = new Partidos();
                     partido.ID_Competicion = id;
-                    partido.ID_Jornada = part.ID_Jornada + 1;
+                    //partido.ID_Jornada = part.ID_Jornada + 1;
+                    partido.ID_Jornada = listadoJornadasCompeticion.Where(j => j.Num_Jornada == part.ID_Jornada + 1).First().ID_Jornada;
                     partido.ID_EquipoLocal = listaEquiposCalendario.Where(e => e.NumEquipo == part.ID_EquipoLocal).First().ID_Equipo;
                     partido.ID_EquipoVisitante = listaEquiposCalendario.Where(e => e.NumEquipo == part.ID_EquipoVisitante).First().ID_Equipo;
 
