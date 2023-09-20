@@ -1,12 +1,12 @@
 Desarrollo de una aplicación web para la creación de un calendario deportivo condicionado por restricciones previamente definidas por el usuario.
 
-##Tabla de Contenidos
+## Tabla de Contenidos
 * [Entorno de desarrollo](#entorno)
 * [Descripción](#descripcion)
 * [Licencia](#licencia)
 
-<a name="entorno">
-##Entorno de desarrollo
+<a name="entorno"></a>
+## Entorno de desarrollo
 Para el desarrollo de este proyecto se ha utilizado:
 
 - Visual Studio 2022 Community (URL: https://visualstudio.microsoft.com/es/vs/community/)
@@ -38,13 +38,13 @@ Para el desarrollo de este proyecto se ha utilizado:
     - Microsoft.EntityFrameworkCore.SqlServer v7.0.11 (URL: https://learn.microsoft.com/es-es/ef/core/)
     - Microsoft.VisualStudio.Web.CodeGeneration.Design v7.0.10 (URL: https://github.com/dotnet/Scaffolding)
 
-<a name="descripcion">
-##Descripción
+<a name="descripcion"></a>
+## Descripción
 Este proyecto forma parte del TFE (Trabajo de Fin de Estudios) del Grado en Ingeniería Informática realizado en UNIR.
 
 Se trata del desarrollo de una aplicación web que permite crear un calendario condicionado y asimétrico después de crear la competición, los equipos, y las restricciones que afectan a la competición y los equipos.
 
-<a name="licencia">
-##Licencia
+<a name="licencia"></a>
+## Licencia
 El paquete de software OR-Tools tiene licencia según los términos de la Licencia [Apache 2.0](LICENCIA.apache-2.0).
 <img src="https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-nd.png" />
