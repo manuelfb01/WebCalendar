@@ -1,0 +1,135 @@
+﻿@model IEnumerable<WebCalendar.Models.Competiciones>
+
+@{
+    ViewData["Title"] = "Competiciones";
+    IList<Jornadas> jornadas = ViewBag.jornadas;
+    IList<Equipos> equipos = ViewBag.equipos;
+    IList<Restricciones> restricciones = ViewBag.restricciones;
+    IList<Partidos> partidos = ViewBag.partidos;
+}
+
+<div class="row">
+    <div class="offset-9 col-3 mb-3">
+        <a asp-action="CompeticionesCrear" asp-asp-controller="Competiciones" class="btn btn-primary d-block mx-auto btn-lg">
+            <i class="bi bi-file-plus-fill">Nueva competición</i>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white" width="100%"><strong>Lista de competiciones</strong></h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    @if (Model.Count() > 0)
+                    {
+                        <table class="table table-bordered table-striped" id="TblCompeticiones" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Competición</th>
+                                    @*<th>Num jornadas repetir enfrentamiento</th>
+                                <th>@Html.DisplayNameFor(m => m.Alternar_Local_Vuelta)</th>*@
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="align-middle">
+                                        <td>@Html.DisplayFor(m => item.NombreCompeticion)</td>
+                                        @*<td>@Html.DisplayFor(m => item.Jor_Rep_Enfrentamiento)</td>
+                                <td>@Html.DisplayFor(m => item.Alternar_Local_Vuelta)</td>*@
+                                        <td class="">
+                                            <span>
+                                                <a class="btn btn-warning mb-2" asp-action="CompeticionesEditar" asp-route-id="@item.ID_Competicion"><i class="bi bi-pencil-fill">Editar</i></a>
+                                                <a class="btn btn-danger d-inline-block mb-2" asp-action="CompeticionesBorrar" asp-route-id="@item.ID_Competicion"><i class="bi bi-eraser">Borrar</i></a>
+                                                @{
+                                                    IList<Jornadas> jornadasCompeticion = jornadas.Where(j => j.ID_Competicion == item.ID_Competicion).ToList();
+                                                    IList<Equipos> equiposCompeticion = equipos.Where(e => e.ID_Competicion == item.ID_Competicion).ToList();
+                                                    IList<Restricciones> restriccionesCompeticion = restricciones.Where(r => r.ID_Competicion == item.ID_Competicion).ToList();
+                                                    IList<Partidos> partidosCompeticion = partidos.Where(p => p.ID_Competicion == item.ID_Competicion).ToList();
+                                                    if (jornadasCompeticion.Count() == 0)
+                                                    {
+                                                    <a class="btn btn-success mb-2" asp-controller="Equipos" asp-action="EquiposIndex" asp-route-id="@item.ID_Competicion"><i>Equipos</i></a>
+                                                    }
+
+                                                    if (jornadasCompeticion.Count() == 0 && equiposCompeticion.Count() > 3)
+                                                    {
+                                                        <a class="btn btn-primary mb-2" asp-controller="Jornadas" asp-action="JornadasCrear" asp-route-id="@item.ID_Competicion"><i class ="bi bi-file-plus-fill">Crear Jornadas</i></a>
+                                                    }
+
+                                                    if (jornadasCompeticion.Count() > 0 && restriccionesCompeticion.Count() == 0)
+                                                    {
+                                                        <a class="btn btn-danger mb-2" asp-controller="Jornadas" asp-action="JornadasBorrar" asp-route-id="@item.ID_Competicion"><i class="bi bi-eraser">Borrar Jornadas</i></a>
+                                                    }
+
+                                                    if (jornadasCompeticion.Count() > 0)
+                                                    {
+                                                    <a class="btn btn-info mb-2" asp-controller="Restricciones" asp-action="RestriccionesIndex" asp-route-id="@item.ID_Competicion"><i>Restricciones</i></a>
+                                                    }
+
+                                                    if (jornadasCompeticion.Count() > 0 && restriccionesCompeticion.Count() > 0 && partidosCompeticion.Count() == 0)
+                                                    {
+                                                    <a class="btn btn-primary mb-2" asp-controller="Competiciones" asp-action="CompeticionesCrearCalendario" asp-route-id="@item.ID_Competicion"><i class="bi bi-file-plus-fill">Crear calendario</i></a>
+                                                    }
+
+                                                    if (partidosCompeticion.Count() > 0)
+                                                    {
+                                                    <a class="btn btn-secondary mb-2" asp-controller="Competiciones" asp-action="CompeticionesVerCalendario" asp-route-id="@item.ID_Competicion"><i class="bi bi-file-plus-fill">Ver calendario</i></a>
+                                                    }
+
+                                                    if (partidosCompeticion.Count() > 0)
+                                                    {
+                                                    <a class="btn btn-danger mb-2" asp-controller="Competiciones" asp-action="CompeticionesBorrarCalendario" asp-route-id="@item.ID_Competicion"><i class="bi bi-eraser">Borrar calendario</i></a>
+                                                    }
+                                                }
+                                                
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No hay competiciones</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            //Llamar a DataLable
+            $('#TblCompeticiones').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Filas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total Filas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Filas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            })
+        })
+    </script>
+}

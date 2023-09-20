@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebCalendar.Models.Usuarios>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h5 class="text-success text-center">Los datos se han actualizado</h5>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-4 col-md-6">
+            <div class="card">
+                <div class="card-header text-center fw-bold">
+                    Datos del usuario
+                </div>
+                <div class="card-body">
+                    <div>
+                        <label class="fw-bold">@Html.DisplayNameFor(model => model.Nombre):</label>
+                        @Html.DisplayFor(model => model.First().Nombre)
+                    </div>
+                    <div>
+                        <label class="fw-bold">@Html.DisplayNameFor(model => model.Apellidos):</label>
+                        @Html.DisplayFor(model => model.First().Apellidos)
+                    </div>
+                    <div>
+                        <label class="fw-bold">@Html.DisplayNameFor(model => model.Email):</label>
+                        @Html.DisplayFor(model => model.First().Email)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

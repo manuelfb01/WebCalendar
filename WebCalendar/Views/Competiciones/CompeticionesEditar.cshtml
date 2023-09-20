@@ -1,0 +1,63 @@
+﻿@model WebCalendar.Models.Competiciones
+
+@{
+    ViewData["Title"] = "Editar competición";
+}
+
+<h1 class="text-center">Editar Competición</h1>
+
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white" width="100%"><strong>Datos de la competición</strong></h3>
+            </div>
+            <div class="card-body">
+                <form asp-action="CompeticionesEditar">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ID_Competicion" />
+                    <div class="form-group">
+                        <label asp-for="NombreCompeticion" class="control-label"></label>
+                        <input asp-for="NombreCompeticion" class="form-control" />
+                        <span asp-validation-for="NombreCompeticion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Jor_Rep_Enfrentamiento" class="control-label"></label>
+                        <input asp-for="Jor_Rep_Enfrentamiento" class="form-control" />
+                        <span asp-validation-for="Jor_Rep_Enfrentamiento" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Alternar_Local_Vuelta" /> @Html.DisplayNameFor(model => model.Alternar_Local_Vuelta)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Num_Jor_Loc" class="control-label"></label>
+                        <input asp-for="Num_Jor_Loc" class="form-control" />
+                        <span asp-validation-for="Num_Jor_Loc" class="text-danger"></span>
+                    </div>
+                    @* <div class="form-group visually-hidden">
+                        <label asp-for="Restricciones" class="control-label"></label>
+                        <input asp-for="Restricciones" class="form-control" />
+                        <span asp-validation-for="Restricciones" class="text-danger"></span>
+                    </div> *@
+                    <div class="form-group visually-hidden">
+                        <label asp-for="ID_Usuario" class="control-label"></label>
+                        <select asp-for="ID_Usuario" class="form-control" asp-items="@ViewBag.ID_Usuario"></select>
+                        <span asp-validation-for="ID_Usuario" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary d-inline-block mx-auto"><i class="bi bi-save"> Guardar</i></button>
+                        <a class="btn btn-secondary" asp-action="CompeticionesIndex">Volver</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

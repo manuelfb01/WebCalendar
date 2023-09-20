@@ -1,0 +1,46 @@
+﻿@model WebCalendar.Models.Usuarios
+
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-4 col-md-6">
+            <div class="card">
+                <div class="card-header text-center fw-bold">
+                    Regístrate
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Usuarios" asp-action="UsuariosCrear" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="text-danger">@ViewData["Duplicado"]</div>
+                        <input class="form-control mb-3" type="text" placeholder="Nombre" asp-for="Nombre" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                        <input class="form-control mb-3" type="text" placeholder="Apellidos" asp-for="Apellidos" />
+                        <span asp-validation-for="Apellidos" class="text-danger"></span>
+                        <input class="form-control mb-3" type="email" placeholder="Dirección de correo" asp-for="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <input class="form-control mb-3" type="password" placeholder="Contraseña" asp-for="KeyPass" />
+                        <div class="d-grid gap-2 mb-3">
+                            <button class="btn btn-primary" type="submit">Registrar</button>
+                            @if (ViewData["Mensaje"] != null)
+                            {
+                                <div class="form-group">
+                                    <div class="alert alert-danger">
+                                        @ViewData["Mensaje"];
+                                    </div>
+                                </div>
+                            }
+                            ¿Ya tienes una cuenta?<a href='@Url.Action("UsuariosIniciarSesion","Usuarios")'>Iniciar sesión</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

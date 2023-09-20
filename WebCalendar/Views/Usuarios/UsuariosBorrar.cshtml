@@ -1,0 +1,24 @@
+﻿@model WebCalendar.Models.Usuarios
+
+@{
+    ViewData["Title"] = "Baja usuario";
+}
+
+<div class="container mt-5 pt-5">
+    <div class="row text-center">
+        <h1 class="text-danger">¿Está seguro de que quiere dar de baja su usuario?</h1>
+        <h4 class="text-danger mb-5">Se eliminarán sus datos y los calendarios que tenga creados</h4>
+        <div class="container text-center">
+            <form asp-action="UsuariosBorrar">
+                <input type="hidden" asp-for="ID_Usuario" />
+                <input type="submit" value="Borrar" class="btn btn-danger" /> <a class="btn btn-secondary" asp-controller="Competiciones" asp-action="CompeticionesIndex" asp-route-id='@Model.ID_Usuario'>Volver</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

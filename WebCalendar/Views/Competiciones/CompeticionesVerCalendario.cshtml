@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WebCalendar.Models.Partidos>
+@{
+    ViewData["Title"] = "Ver Calendario";
+    IList<Equipos> listaEquipos = ViewBag.listaEquipos;
+    IList<Jornadas> listaJornadas = ViewBag.ListaJornadas;
+    string nombreEquipoLocal;
+    string nombreEquipoVisitante;
+}
+
+<h1>Calendario @ViewData["competicion"]</h1>
+
+
+<!--<div class="d-grid gap-2 d-md-flex justify-content-md-end">-->
+<div class="d-md-flex justify-content-md-end mb-2">
+    <div class="me-md-2">
+        <a asp-action="CompeticionesBorrarCalendario" asp-asp-controller="Competiciones" asp-route-id='@ViewData["idCompeticion"]' class="btn btn-danger d-block mx-auto btn-xl">
+            <i class="bi bi-eraser">Borrar calendario</i>
+        </a>
+    </div>
+    <div class="me-md-2">
+        <a asp-action="CompeticionesIndex" asp-asp-controller="Competiciones" asp-route-id='@ViewData["idCompeticion"]' class="btn btn-secondary d-block mx-auto btn-xl">
+            <i class="bi bi-eraser">Volver</i>
+        </a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row row-cols-xxl-4 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-xs-1">
+        @foreach(var jornada in listaJornadas)
+        {
+            IList<Partidos> partidosJornada = Model.Where(p => p.ID_Jornada == @jornada.ID_Jornada).ToList();
+            <div class="col">
+                <table class="table table-borderless table-sm">
+                    <thead>
+                        <tr>
+                            <th class="text-center bg-primary text-white">Jornada @jornada.Num_Jornada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var partido in partidosJornada)
+                        {
+                        nombreEquipoLocal = listaEquipos.Where(e => e.ID_Equipo == partido.ID_EquipoLocal).First().NombreEquipo;
+                        nombreEquipoVisitante = listaEquipos.Where(e => e.ID_Equipo == partido.ID_EquipoVisitante).First().NombreEquipo;
+                        <tr>
+                            <td class="text-center text-uppercase" style="font-size:small;">@nombreEquipoLocal - @nombreEquipoVisitante</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+     </div>
+</div> 
+

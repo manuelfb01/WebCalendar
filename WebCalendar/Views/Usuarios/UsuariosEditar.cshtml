@@ -1,0 +1,59 @@
+﻿@model WebCalendar.Models.Usuarios
+
+@{
+    ViewData["Title"] = "Editar usuario";
+}
+
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-4 col-md-6">
+            <div class="card">
+                <div class="card-header text-center fw-bold">
+                    Mis datos
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Usuarios" asp-action="UsuariosEditar" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <!-- ID_Usuario como campo oculto -->
+                        <input type="hidden" asp-for="ID_Usuario" />
+                        <input type="hidden" name="emailAnterior" value='@ViewData["emailUsuario"]' />
+                        <input type="hidden" asp-for="KeyPass" />
+                        <input type="hidden" asp-for="Validado" />
+                        <input type="hidden" asp-for="FechaRegistro" />
+                        <input type="hidden" asp-for="FechaValidado" />
+                        <div class="form-group">
+                            <label asp-for="Nombre" class="control-label"></label>
+                            <input class="form-control mb-3" type="text" placeholder="Nombre" asp-for="Nombre" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Apellidos" class="control-label"></label>
+                            <input class="form-control mb-3" type="text" placeholder="Apellidos" asp-for="Apellidos" />
+                            <span asp-validation-for="Apellidos" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input class="form-control mb-3" type="email" placeholder="Dirección de correo" asp-for="Email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid gap-2 mb-3">
+                            <button class="btn btn-primary" type="submit">Guardar</button>
+                            @if (ViewData["Mensaje"] != null)
+                            {
+                                <div class="form-group">
+                                    <div class="alert alert-danger">
+                                        @ViewData["Mensaje"];
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,25 @@
+﻿@model WebCalendar.Models.Competiciones
+@{
+    ViewData["Title"] = "Crear Calendario";
+}
+
+<h1>Crear Calendario</h1>
+
+<h3>¿Quiere crear el calendario de esta competición?</h3>
+<div class="container text-center">
+    <form asp-action="CompeticionesCrearCalendario" method="post">
+        <input type="hidden" asp-for="ID_Competicion" />
+        <input id="BotonCrearCalendario" type="submit" value="Crear calendario" class="btn btn-primary" /> <a id="BotonVolver" class="btn btn-secondary" asp-controller="Competiciones" asp-action="CompeticionesIndex" asp-route-id='@Model.ID_Usuario'>Volver</a>
+    </form>
+</div>
+
+<h6 id="MensajeCreandoCalendario" class="text-center mt-2"></h6>
+
+<script type="text/javascript">
+    $("form").on("submit",function (e) {
+        $("#BotonCrearCalendario").attr("disabled", true);
+        $("#BotonVolver").attr("disabled", true);
+        $("#MensajeCreandoCalendario").text("Se está buscando una solución al calendario. Tenga paciencia.");
+    });
+</script>
+

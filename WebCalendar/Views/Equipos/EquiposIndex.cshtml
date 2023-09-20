@@ -1,0 +1,91 @@
+﻿@model IEnumerable<WebCalendar.Models.Equipos>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="offset-9 col-3 mb-3">
+        <a asp-action="EquiposCrear" asp-asp-controller="Equipos" asp-route-id='@ViewData["idCompeticion"]' class="btn btn-primary d-block mx-auto btn-lg">
+            <i class="bi bi-file-plus-fill">Nuevo equipo</i>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white" width="100%"><strong>Equipos de @ViewData["NombreCompeticion"]</strong></h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    @if (Model.Count() > 0)
+                    {
+                        <table class="table table-bordered" id="TblEquipos" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.NombreEquipo)</th>
+                                    @*<th>@Html.DisplayNameFor(model => model.Competicion)</th>*@
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(m => item.NombreEquipo)</td>
+                                        @*<td>@Html.DisplayFor(modelItem => item.Competicion.NombreCompeticion)</td>*@
+                                        <td class="">
+                                            <span>
+                                                <a class="btn btn-warning" asp-action="EquiposEditar" asp-route-id="@item.ID_Equipo"><i class="bi bi-pencil-fill">Editar</i></a>
+                                                <a class="btn btn-danger d-inline-block" asp-action="EquiposBorrar" asp-route-id="@item.ID_Equipo"><i class="bi bi-eraser">Borrar</i></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No hay equipos</p>
+                    }
+                </div>
+                <div class="text-center">
+                    <a class="btn btn-secondary" asp-controller="Competiciones" asp-action="CompeticionesIndex" asp-route-id='@ViewData["idCompeticion"]'>Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            //Llamar a DataLable
+            $('#TblEquipos').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Filas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total Filas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Filas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            })
+        })
+    </script>
+}
