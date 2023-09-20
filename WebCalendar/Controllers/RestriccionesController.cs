@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -47,7 +47,6 @@ namespace WebCalendar.Controllers
             Competiciones competicion = competiciones.First();
             ViewData["NombreCompeticion"] = competicion.NombreCompeticion;
 
-            //var applicationDbContext = _context.Restricciones.Include(r => r.Competicion).Include(r => r.TipoRestriccion);
             var listaRestricciones = _context.Restricciones.Where(r => r.ID_Competicion == id).OrderBy(r => r.ID_Jornada);
             IList<TiposRestricciones> listaTiposRestricciones = await _context.TiposRestricciones.ToListAsync();
             IList<Jornadas> listaJornadas = await _context.Jornadas.Where(r => r.ID_Competicion == id).ToListAsync();
@@ -95,9 +94,6 @@ namespace WebCalendar.Controllers
             var equipoRival = _context.Equipos.Where(e => e.ID_Competicion == id).OrderBy(e => e.NombreEquipo);
             ViewData["ID_EquipoRival"] = new SelectList(equipoRival, "ID_Equipo", "NombreEquipo");
 
-            //ViewData["ID_Competicion"] = new SelectList(_context.Competiciones, "ID_Competicion", "NombreCompeticion");
-            //ViewData["ID_Tipo_Restriccion"] = new SelectList(_context.TiposRestricciones, "Id_Tipo_Restriccion", "Tipo_Restriccion");
-
 
             return View();
         }
@@ -117,7 +113,6 @@ namespace WebCalendar.Controllers
                 }
                 _context.Add(restricciones);
                 await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
                 return RedirectToAction(nameof(RestriccionesIndex), new { id = restricciones.ID_Competicion });
             }
             ViewData["ID_Competicion"] = new SelectList(_context.Competiciones, "ID_Competicion", "NombreCompeticion", restricciones.ID_Competicion);
