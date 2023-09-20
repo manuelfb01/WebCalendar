@@ -1,4 +1,4 @@
-﻿@model WebCalendar.Models.Equipos
+@model WebCalendar.Models.Equipos
 
 @{
     ViewData["Title"] = "Edit";
@@ -27,47 +27,13 @@
                     </div>
                     <div class="form-group mt-3 text-center">
                         <button type="submit" class="btn btn-primary d-inline-block mx-auto"><i class="bi bi-save"> Guardar</i></button>
-                        <a class="btn btn-secondary" asp-controller="Equipos" asp-action="EquiposIndex" asp-route-id='@ViewData["idCompeticion"]'>Volver</a>
+                        <a class="btn btn-secondary" asp-controller="Equipos" asp-action="EquiposIndex" asp-route-id='@Model.ID_Competicion'>Volver</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-@*<h1>Edit</h1>
-
-<h4>Equipos</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="EquiposEditar">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID_Equipo" />
-            <div class="form-group">
-                <label asp-for="NombreEquipo" class="control-label"></label>
-                <input asp-for="NombreEquipo" class="form-control" />
-                <span asp-validation-for="NombreEquipo" class="text-danger"></span>
-            </div>
-            <div class="form-group visually-hidden">
-                <label asp-for="ID_Competicion" class="control-label"></label>
-                         <select asp-for="ID_Competicion" class="form-control" asp-items="@ViewBag.ID_Competicion"></select>
-                <span asp-validation-for="ID_Competicion" class="text-danger"></span>
-            </div>
-            <div class="form-group text-center">
-                <button type="submit" class="btn btn-primary d-inline-block mx-auto"><i class="bi bi-save"> Guardar</i></button>
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index" asp-route-id="ID_Competicion">Back to List</a>
-</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
